@@ -1,0 +1,33 @@
+[
+  {
+    "id": "d4640a6dc6136022101f8e116987667f",
+    "ts": 1751434240.388604,
+    "excuse": "My deepest apologies for missing class today. My pet had a sudden, severe medical emergency this morning \u2013 a terrifying seizure. I had to rush him to the emergency vet immediately and am still here waiting for news. It was a complete panic; I couldn't possibly have made it in.",
+    "believability_score": 0.92,
+    "chat_log": "From Friend: Hey, you okay? Class started, didn't see you.\nFrom Me: No, major panic. [Pet's Name] had a seizure, rushed him to emergency vet. Still here. Couldn't make it. \ud83d\ude2d\nFrom Friend: Oh no! So sorry, hope he's okay! \ud83d\ude4f"
+  },
+  {
+    "id": "emergency-1751435255",
+    "ts": 1751435255.78213,
+    "excuse": "EMERGENCY TRIGGER",
+    "believability_score": 1.0,
+    "chat_log": "Sent 'Call me now!' to +1123456789"
+  },
+  {
+    "id": "9a03094745b90498848dac0ed1f8e20e",
+    "ts": 1751435416.3541481,
+    "excuse": "My younger sibling had a sudden, severe allergic reaction and I had to rush them to urgent care. It was incredibly sudden and chaotic, pure panic. I'm still at the clinic with them, waiting for updates. Couldn't even think about class.",
+    "believability_score": 0.96,
+    "chat_log": {
+      "Mom": "Hurry! They're struggling to breathe.",
+      "You": "Pulling up now. This is insane."
+    }
+  },
+  {
+    "id": "emergency-1751435436",
+    "ts": 1751435436.605806,
+    "excuse": "EMERGENCY TRIGGER",
+    "believability_score": 1.0,
+    "chat_log": "Sent 'Call me now!' to +1123456789"
+  }
+]
