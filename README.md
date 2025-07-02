@@ -1,12 +1,39 @@
 # Intelligent Excuse Generator
 
-FastAPI micro-service that creates believable excuses plus a chat-log “proof,”
-stores history, ranks past excuses, and simulates an emergency text—powered by
-Google Gemini (via LangChain).
+FastAPI service that produces believable excuses, stores history, ranks by score,  
+and simulates an emergency SMS—powered by Google Gemini (via LangChain).
 
-## 1 . Setup
-```bash
-git clone https://github.com/<yourUser>/excuse-generator.git
-cd excuse-generator
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+---
+
+## 1 · Setup
+    git clone https://github.com/Bhuvan-Arora-1313/excuse-generator.git
+    cd excuse-generator
+    python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
+    pip install -r requirements.txt
+
+Create a `.env` file:
+
+    GOOGLE_API_KEY=AI-XXXXXXXXXXXXXXXXXXXXXXXX
+
+---
+
+## 2 · Run
+    uvicorn excuse_api:app --reload
+Swagger UI → http://localhost:8000/docs
+
+---
+
+## 3 · Endpoints
+
+| Method | Path         | Body / Query                                              | Description                         |
+|--------|--------------|-----------------------------------------------------------|-------------------------------------|
+| POST   | `/generate`  | `{"scenario":"missed class","urgency":"panic"}`           | Generate excuse JSON                |
+| GET    | `/top?n=5`   | `n` (query param)                                         | Top *n* excuses by score            |
+| POST   | `/emergency` | `{"number":"+1123456789","message":"Call me!"}`           | Simulate emergency SMS (logs entry) |
+
+---
+
+## 4 · Example
+    curl -X POST http://127.0.0.1:8000/generate \
+         -H "Content-Type: application/json" \
+         -d '{"scenario":"missed class","urgency":"panic"}'
