@@ -35,6 +35,8 @@ app = FastAPI()
 class Req(BaseModel):
     scenario: str  # e.g. "missed class"
     urgency: str   # "low" | "medium" | "panic"
+    mode: str = "normal"   # "normal" | "apology"
+    language: str = "en"   # ISO code, e.g. "en", "es", "fr"
 
 class EmergencyRequest(BaseModel):
     number: str
@@ -51,8 +53,22 @@ Return a JSON with:
 # ---------- /generate ----------
 @app.post("/generate")
 def generate(r: Req):
-    prompt = f"Scenario: {r.scenario}\nUrgency: {r.urgency}"
-    full_prompt = f"{SYSTEM_PROMPT}\nScenario: {r.scenario}\nUrgency: {r.urgency}"
+    style_clause = (
+        "Respond in a guilt‑tripping, heartfelt apology tone."
+        if r.mode.lower() == "apology"
+        else "Respond in a neutral, believable tone."
+    )
+    # language directive
+    lang_clause = (
+        "" if r.language.lower() in ["en", "english"] else
+        f"Respond in {r.language} language."
+    )
+    full_prompt = (
+        f"{SYSTEM_PROMPT}\n"
+        f"Tone: {style_clause}\n"
+        f"{lang_clause}\n"
+        f"Scenario: {r.scenario}\nUrgency: {r.urgency}"
+    )
     messages = [
         SystemMessage(content=SYSTEM_PROMPT),
         HumanMessage(content=full_prompt)
