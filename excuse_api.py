@@ -37,6 +37,7 @@ class Req(BaseModel):
     urgency: str   # "low" | "medium" | "panic"
     mode: str = "normal"   # "normal" | "apology"
     language: str = "en"   # ISO code, e.g. "en", "es", "fr"
+    voice: bool = False   # If true, return an MP3 of the excuse
 
 class EmergencyRequest(BaseModel):
     number: str
@@ -83,6 +84,14 @@ def generate(r: Req):
         "ts": time.time(),
         **out,
     }
+    # --- optional voice synthesis ---
+    if r.voice:
+        from gtts import gTTS
+        audio_dir = Path("audio")
+        audio_dir.mkdir(exist_ok=True)
+        audio_file = audio_dir / f"{entry['id']}.mp3"
+        gTTS(out["excuse"], lang=r.language[:2]).save(audio_file.as_posix())
+        entry["audio"] = str(audio_file)
 
     history = json.loads(DATA.read_text())
     if entry["id"] not in {h["id"] for h in history}:   # de-dupe
